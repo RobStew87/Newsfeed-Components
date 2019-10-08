@@ -85,7 +85,17 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
-  }
+},
+{
+  title: "Jeff explains Javascript in a way that you won't get it",
+  date: 'Jan 31st, 2019',
+  firstParagraph: `Javascript is actually quite easy to understand. Contrary to what I used to think about it when I first came across Javascript.
+  These are the steps....`,
+
+  secondParagraph: `First step: look at Lambda TK.`,
+
+  thirdParagraph: `Second step: just get good. Stop stressing and just learn the syntax.`
+}
 ];
 
 /* Step 1: Create a function that creates a component. You will want your component to look like the template below: 
@@ -112,3 +122,60 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+window.addEventListener('load', (e) => {
+
+	const articles = document.querySelector('.articles');
+	data.forEach((element) => {
+		articles.appendChild(
+			createArticle(
+				element.title,
+				element.date,
+				element.firstParagraph,
+				element.secondParagraph,
+				element.thirdParagraph
+			)
+		);
+	});
+
+	function createArticle(title, date, firstParagraph, secondParagraph, thirdParagraph) {
+		// new elements //
+		const articleDiv = document.createElement('div');
+		const title1 = document.createElement('h2');
+		const date1 = document.createElement('p');
+		const paragraphOne = document.createElement('p');
+		const paragraphTwo = document.createElement('p');
+		const paragraphThree = document.createElement('p');
+		const buttonSpan = document.createElement('span');
+		// Structure of Elements //
+		articleDiv.appendChild(title1);
+		articleDiv.appendChild(date1);
+		articleDiv.appendChild(paragraphOne);
+		articleDiv.appendChild(paragraphTwo);
+		articleDiv.appendChild(paragraphThree);
+		articleDiv.appendChild(buttonSpan);
+		// class names //
+		articleDiv.classList.add('article');
+		date1.classList.add('date');
+		buttonSpan.classList.add('expandButton');
+		// set content //
+		title1.textContent = title;
+		date1.textContent = date;
+		paragraphOne.textContent = firstParagraph;
+		paragraphTwo.textContent = secondParagraph;
+    paragraphThree.textContent = thirdParagraph;
+    buttonSpan.textContent = 'Click for more';
+		//event listeners //
+		buttonSpan.addEventListener('click', (e) => {
+			articleDiv.classList.toggle('article-open');
+		});
+    console.log(buttonSpan);
+		return articleDiv;
+	}
+});
+
+/* <div class="article">
+    <h2>{title of the article}</h2>
+    <p class="date">{date of the article}</p>
+    {three separate paragraph elements}
+    <span class='expandButton'></span>
+  </div> */
